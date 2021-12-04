@@ -1,0 +1,30 @@
+// Checkpoint 4: Find the square root
+let queryNum = 3454
+
+enum sqrtError: Error {
+    case outOfBounds, noRoot
+}
+
+func findSqrt(of num: Int) throws -> Int {
+    if num < 1 || num > 10_000 {
+        throw sqrtError.outOfBounds
+    }
+    
+    for i in 1...100 {
+        if i * i == num {
+            return i
+        }
+    }
+    throw sqrtError.noRoot
+}
+
+do {
+    let root = try findSqrt(of: queryNum)
+    print(root)
+    
+} catch sqrtError.outOfBounds {
+    print("Number is out of bounds")
+    
+} catch sqrtError.noRoot {
+    print("No root for number")
+}

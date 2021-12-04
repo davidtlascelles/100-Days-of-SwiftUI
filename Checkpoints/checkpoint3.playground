@@ -1,0 +1,13 @@
+// Checkpoint 3: FizzBuzz
+for i in 1...100 {
+    switch true {
+    case (i.isMultiple(of: 3*5)):
+        print("FizzBuzz")
+    case (i.isMultiple(of: 5)):
+        print("Buzz")
+    case (i.isMultiple(of: 3)):
+        print("Fizz")
+    default:
+        print(i)
+    }
+}

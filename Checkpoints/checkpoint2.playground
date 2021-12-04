@@ -1,0 +1,6 @@
+// Checkpoint 2: Array and set methods
+let items = ["Seven", "One", "Four", "Two", "Six", "Four", "Nine"]
+print("""
+The number of items in \"items\" is \(items.count).
+The number of unique items in \"items\" is \(Set(items).count)
+""")

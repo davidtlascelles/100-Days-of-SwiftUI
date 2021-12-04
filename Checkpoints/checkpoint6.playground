@@ -1,0 +1,57 @@
+// Checkpoint 6: Car struct
+struct Car {
+    enum ShiftDirection: String {
+        case up = "up", down = "down"
+    }
+    
+    enum Gear: Int {
+        case neutral, first, second, third, fourth, fifth
+        
+        mutating func shift(_ direction: Car.ShiftDirection) {
+            switch direction {
+            case .up:
+                shiftUp(direction, currentGear: self)
+            case .down:
+                shiftDown(direction, currentGear: self)
+        }
+            
+        func shiftUp(_ direction: ShiftDirection, currentGear: Gear) {
+            self = Gear(rawValue: rawValue + 1) ?? Gear(rawValue: rawValue)!
+            shiftError(direction.rawValue, beforeGearChange: currentGear, currentGearChange: self)
+        }
+        
+        func shiftDown(_ direction: ShiftDirection, currentGear: Gear) {
+            self = Gear(rawValue: rawValue - 1) ?? Gear(rawValue: rawValue)!
+            shiftError(direction.rawValue, beforeGearChange: currentGear, currentGearChange: self)
+        }
+    
+        func shiftError(_ direction: String, beforeGearChange: Gear, currentGearChange: Gear) {
+            if beforeGearChange == currentGearChange {
+                print("Cannot shift \(direction): Already in \(beforeGearChange).")
+            }
+        }
+    }
+}
+    
+    let model: String
+    let numberOfSeats: Int
+    var currentGear: Gear = .neutral
+}
+
+var myCar = Car(model: "Honda", numberOfSeats: 5)
+
+print(myCar.model)
+print(myCar.currentGear)
+
+myCar.currentGear.shift(.up)
+print(myCar.currentGear)
+myCar.currentGear.shift(.down)
+myCar.currentGear.shift(.down)
+
+myCar.currentGear.shift(.up)
+myCar.currentGear.shift(.up)
+myCar.currentGear.shift(.up)
+print(myCar.currentGear)
+myCar.currentGear.shift(.up)
+myCar.currentGear.shift(.up)
+myCar.currentGear.shift(.up)

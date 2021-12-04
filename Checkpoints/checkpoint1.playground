@@ -1,0 +1,4 @@
+// Checkpoint 1: Temperature unit converter
+let tempC = 0
+let tempF = tempC * 9 / 5 + 32
+print("\(tempC)° in Celcius is \(tempF)° in Fahrenheit")
