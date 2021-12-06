@@ -1,0 +1,35 @@
+// Checkpoint 8: Building protocol
+protocol Building {
+    var roomNumber: Int { get }
+    var cost: Int { get set }
+    var estateAgent: String { get set }
+    
+    func printSalesSummary() -> Void
+}
+
+struct House: Building {
+    let roomNumber: Int
+    var cost: Int
+    var estateAgent: String
+    
+    func printSalesSummary() {
+        print("This \(roomNumber) bedroom house was sold for \(cost) by the estate agent \(estateAgent)")
+    }
+}
+
+struct Office: Building {
+    let roomNumber: Int
+    var cost: Int
+    var estateAgent: String
+    
+    func printSalesSummary() {
+        print("This \(roomNumber) room office was sold for \(cost) by the estate agent \(estateAgent)")
+    }
+}
+
+let home = House(roomNumber: 4, cost: 750_000, estateAgent: "Bob Anderson")
+home.printSalesSummary()
+
+let work = Office(roomNumber: 30, cost: 2_500_000, estateAgent: "Jill Smith")
+work.printSalesSummary()
+
