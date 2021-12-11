@@ -16,19 +16,23 @@ struct Car {
         }
             
         func shiftUp(_ direction: ShiftDirection, currentGear: Gear) {
-            self = Gear(rawValue: rawValue + 1) ?? Gear(rawValue: rawValue)!
-            shiftError(direction.rawValue, beforeGearChange: currentGear, currentGearChange: self)
+            if let newGear = Gear(rawValue: rawValue + 1) {
+                self = newGear
+            } else {
+                shiftError(direction.rawValue, gear: self)
+            }
         }
         
         func shiftDown(_ direction: ShiftDirection, currentGear: Gear) {
-            self = Gear(rawValue: rawValue - 1) ?? Gear(rawValue: rawValue)!
-            shiftError(direction.rawValue, beforeGearChange: currentGear, currentGearChange: self)
+            if let newGear = Gear(rawValue: rawValue + 1) {
+                self = newGear
+            } else {
+                shiftError(direction.rawValue, gear: self)
+            }
         }
     
-        func shiftError(_ direction: String, beforeGearChange: Gear, currentGearChange: Gear) {
-            if beforeGearChange == currentGearChange {
-                print("Cannot shift \(direction): Already in \(beforeGearChange).")
-            }
+        func shiftError(_ direction: String, gear: Gear) {
+            print("Cannot shift \(direction): Already in \(gear).")
         }
     }
 }
@@ -51,7 +55,6 @@ myCar.currentGear.shift(.down)
 myCar.currentGear.shift(.up)
 myCar.currentGear.shift(.up)
 myCar.currentGear.shift(.up)
-print(myCar.currentGear)
 myCar.currentGear.shift(.up)
 myCar.currentGear.shift(.up)
 myCar.currentGear.shift(.up)
