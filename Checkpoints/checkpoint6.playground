@@ -8,6 +8,7 @@ struct Car {
         case neutral, first, second, third, fourth, fifth
         
         mutating func shift(_ direction: Car.ShiftDirection) {
+            print("Shifting \(direction)")
             switch direction {
             case .up:
                 shiftUp(direction, currentGear: self)
@@ -15,24 +16,20 @@ struct Car {
                 shiftDown(direction, currentGear: self)
         }
             
-        func shiftUp(_ direction: ShiftDirection, currentGear: Gear) {
-            if let newGear = Gear(rawValue: rawValue + 1) {
-                self = newGear
-            } else {
-                shiftError(direction.rawValue, gear: self)
-            }
+        func shiftDown(_ direction: ShiftDirection, currentGear: Gear) {
+            self = Gear(rawValue: rawValue - 1) ?? self
+            shiftError(direction.rawValue, isSameGear: self == currentGear)
         }
         
-        func shiftDown(_ direction: ShiftDirection, currentGear: Gear) {
-            if let newGear = Gear(rawValue: rawValue + 1) {
-                self = newGear
-            } else {
-                shiftError(direction.rawValue, gear: self)
-            }
+        func shiftUp(_ direction: ShiftDirection, currentGear: Gear) {
+            self = Gear(rawValue: rawValue + 1) ?? self
+            shiftError(direction.rawValue, isSameGear: self == currentGear)
         }
     
-        func shiftError(_ direction: String, gear: Gear) {
-            print("Cannot shift \(direction): Already in \(gear).")
+        func shiftError(_ direction: String, isSameGear: Bool) {
+            if isSameGear {
+                print("Cannot shift \(direction); already in \(self).")
+            }
         }
     }
 }
@@ -44,17 +41,18 @@ struct Car {
 
 var myCar = Car(model: "Honda", numberOfSeats: 5)
 
-print(myCar.model)
-print(myCar.currentGear)
-
+print("Car model: \(myCar.model)")
+print("Starting gear: \(myCar.currentGear)")
 myCar.currentGear.shift(.up)
-print(myCar.currentGear)
+print("Current gear: \(myCar.currentGear)")
 myCar.currentGear.shift(.down)
 myCar.currentGear.shift(.down)
 
 myCar.currentGear.shift(.up)
 myCar.currentGear.shift(.up)
 myCar.currentGear.shift(.up)
+print("Current gear: \(myCar.currentGear)")
 myCar.currentGear.shift(.up)
 myCar.currentGear.shift(.up)
+print("Current gear: \(myCar.currentGear)")
 myCar.currentGear.shift(.up)
