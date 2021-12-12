@@ -1,0 +1,6 @@
+// Checkpoint 9: Optionals
+
+func randomInt(from arr: [Int]?) -> Int {arr?.randomElement() ?? Int.random(in: 1...100)}
+
+print(randomInt(from: []))
+print(randomInt(from: [1, 3, 5, 7, 9]))
