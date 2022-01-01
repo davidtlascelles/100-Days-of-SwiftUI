@@ -8,24 +8,31 @@
 import SwiftUI
 
 struct ContentView: View {
-    let students = ["Harry", "Hermione", "Ron"]
+    @State private var checkAmount = 0.0
+    @State private var numberOfPeople = 2
+    @State private var tipPercentage = 20
     
-    // Properties that store state should be @State wrapped.
-    // If the property is only associated with this view, it should be private
-    @State private var selectedStudent = "Harry"
-
+    let tipPercentages = [10, 15, 20, 25, 0]
+    
+    let currencyCode = Locale.current.currencyCode ?? "USD"
+    
     var body: some View {
-        NavigationView {
-            Form {
-                Picker("Select your student", selection:
-                    // $ character is for two-way binding. This reads and writes the state to the selectedStudent property
-                    $selectedStudent) {
-                    // \.self is a weird thing that basically says the way to distinguish between strings is the string itself. Not sure what the \. is about.
-                    ForEach(students, id: \.self) {
-                        // This is fancy closure syntax to just mean "Show the text view of the (only) paramter"
-                        Text($0)
-                    }
-                }
+        Form {
+            Section {
+                TextField("Amount", // <- Just placeholder text
+                          // Two way bound property
+                          // Using "value" instead of "text" since it is a number.
+                          value: $checkAmount,
+                          // Specify the kind of number is being provided
+                          format: .currency(
+                            // Locale struct contains all kinds of user localized preferences
+                            code: Locale.current.currencyCode ?? "USD")
+                ).keyboardType(.decimalPad)
+            }
+            Section {
+                Text(checkAmount,
+                     format: .currency(code: currencyCode)
+                )
             }
         }
     }
