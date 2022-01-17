@@ -67,6 +67,7 @@ struct ContentView: View {
                     Text(totalPerPerson,
                          format: localizedCurrency
                     )
+                        .foregroundColor(tipPercentage==0 ? Color.red : Color.primary)
                 } header: {
                     Text("Ammount per person")
                 }
